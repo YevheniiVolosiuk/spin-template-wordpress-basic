@@ -1,0 +1,8 @@
+---
+title: WordPress Basic Template
+authors:
+  - Jay Rogers (@jaydrogers)
+  - Yevhenii Volosiuk (@yevheniivol)
+description: WordPress Spin template when you run `spin new wordpress` from CLI.
+repository: https://github.com/YevheniiVolosiuk/spin-template-wordpress-basic
+issues: https://github.com/YevheniiVolosiuk/spin-template-wordpress-basic/issues
