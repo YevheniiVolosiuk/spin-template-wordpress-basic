@@ -1,0 +1,73 @@
+---
+services:
+  traefik:
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Uncomment to enable Traefik's dashboard
+    networks:
+      development:
+        aliases:
+          - laravel.dev.test
+          - vite.dev.test
+          - mailpit.dev.test
+          - reverb.dev.test
+    volumes:
+      # Mount the Docker socket as read-only so Traefik can listen to events
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./.infrastructure/conf/traefik/dev/traefik.yml:/traefik.yml:ro
+      - ./.infrastructure/conf/traefik/dev/traefik-certs.yml:/traefik-certs.yml
+      - ./.infrastructure/conf/traefik/dev/certificates/:/certificates
+  php:
+    build:
+      context: .
+      target: development
+      args:
+        # UID and GID must be set as environment variables on the host machine
+        USER_ID: 1000
+        GROUP_ID: 1000
+    volumes:
+      - .:/var/www/html/
+    networks:
+      - development
+    depends_on:
+      mariadb:
+        condition: service_started
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wordpress.rule=Host(`wordpress.dev.test`)"
+      - "traefik.http.routers.wordpress.entrypoints=websecure"
+      - "traefik.http.routers.wordpress.tls=true"
+      - "traefik.http.services.wordpress.loadbalancer.server.port=8080"
+      - "traefik.http.services.wordpress.loadbalancer.server.scheme=http"
+  node:
+    image: node:20
+    volumes:
+      - .:/usr/src/app/
+    working_dir: /usr/src/app/
+    networks:
+      - development
+
+  mailpit:
+    image: axllent/mailpit
+    networks:
+      - development
+    ports:
+      - "8025:8025"
+
+  mariadb:
+    networks:
+      - development
+    volumes:
+      - ./.infrastructure/volume_data/mariadb/database_data/:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: "rootpassword"
+      MARIADB_DATABASE: "wordpress"
+      MARIADB_USER: "wordpress_database_user"
+      MARIADB_PASSWORD: "wordpress_database_password"
+    ports:
+      - target: 3306
+        published: 3306
+        mode: host
+networks:
+  development:

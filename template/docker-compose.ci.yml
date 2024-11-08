@@ -1,0 +1,32 @@
+services:
+  php:
+    build:
+      target: ci
+      dockerfile: Dockerfile.php
+    networks:
+      - ci
+    volumes:
+      - .:/var/www/html/
+    depends_on:
+      - mariadb
+  node:
+    build:
+      target: ci
+      dockerfile: Dockerfile.node
+    volumes:
+      - .:/usr/src/app/
+    networks:
+      - ci
+    working_dir: /usr/src/app/
+  mailpit:
+    image: axllent/mailpit
+    networks:
+      - ci
+  mariadb:
+    environment:
+      MARIADB_ROOT_PASSWORD: "cirootpassword"
+      MARIADB_DATABASE: "cidatabase"
+      MARIADB_USER: "ciuser"
+      MARIADB_PASSWORD: "cipassword"
+networks:
+  ci:
