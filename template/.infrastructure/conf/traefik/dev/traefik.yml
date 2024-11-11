@@ -4,6 +4,7 @@ serversTransport:
 
 providers:
   docker:
+#    entrypoint: "unix://var/run/docker.sock"
     exposedByDefault: false
   file:
       filename: /traefik-certs.yml
