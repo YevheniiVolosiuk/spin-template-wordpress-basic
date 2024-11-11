@@ -36,7 +36,7 @@ To get started, you need [Spin](https://serversideup.net/open-source/spin/docs) 
 
 Next run:
 ```
-spin new YevheniiVolosiuk/spin-template-laravel-basic --branch main
+spin new YevheniiVolosiuk/spin-template-wordpress-basic --branch main
 ```
 ## Configuration
 If you whant change domain name for dev env. you need:
