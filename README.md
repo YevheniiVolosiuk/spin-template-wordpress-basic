@@ -114,7 +114,7 @@ Upcoming improvements and planned features:
 
 ---
 
-Thank you for checking out **Spin WordPress Template**! I am excited to keep building and improving. If you have any feedback or want to contribute, please reach out or open a pull request. Together, let’s make this a go-to template for WordPress development.
+Thank you for checking out **Spin WordPress Template**! I am excited to keep building and improving. If you have any feedback or want to contribute, please reach out or open a pull request.
 
 ---
 
