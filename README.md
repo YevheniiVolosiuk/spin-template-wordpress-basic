@@ -2,6 +2,8 @@
 
 A customizable, developer-friendly WordPress template designed to streamline your workflow and make spinning up new WordPress projects easier than ever.
 
+> **Note:** This project is currently in the **Alpha** stage and is still under active development and is not yet ready for production use.
+
 ## Table of Contents
 
 - [About the Project](#about-the-project)
